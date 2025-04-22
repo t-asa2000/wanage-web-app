@@ -127,8 +127,8 @@ function resetBoard() {
       <input type="radio" class="btn-check" name="wanageMode" id="edit" value="edit" v-model="wanageMode" autocomplete="off">
       <label class="btn btn-outline-success" for="edit">ボード編集</label>
       <button class="btn btn-secondary" @click.stop="resetCounts()">輪のリセット</button>
-      <button class="btn btn-secondary" @click.stop="resetBoard()">ボードのリセット</button>
-      <a href="." target="_blank" class="btn btn-secondary">新しいカード</a>
+      <button class="btn btn-secondary" @click.stop="resetBoard()" v-if="wanageMode == 'edit'">ボードのリセット</button>
+      <a href="." target="_blank" class="btn btn-secondary" v-else>新しいカード</a>
     </div>
     <template v-if="wanageMode == 'edit' || wanageError">
       <div class="alert mt-3" :class="wanageError ? 'alert-danger' : 'alert-success'">
