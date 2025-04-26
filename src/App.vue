@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
+import WanageCell from './components/WanageCell.vue'
 
 const NUMBERS = [2,9,4,7,5,3,6,1,8]
 const LINES = [
@@ -127,8 +128,8 @@ function resetBoard() {
       <input type="radio" class="btn-check" name="wanageMode" id="edit" value="edit" v-model="wanageMode" autocomplete="off">
       <label class="btn btn-outline-success" for="edit">ボード編集</label>
       <button class="btn btn-secondary" @click.stop="resetCounts()">輪のリセット</button>
-      <button class="btn btn-secondary" @click.stop="resetBoard()" v-if="wanageMode == 'edit'">ボードのリセット</button>
-      <a href="." target="_blank" class="btn btn-secondary" v-else>新しいカード</a>
+      <a href="." target="_blank" class="btn btn-secondary" v-if="wanageMode != 'edit'">新しいカード</a>
+      <button class="btn btn-secondary" @click.stop="resetBoard()" v-else>ボードのリセット</button>
     </div>
     <template v-if="wanageMode == 'edit' || wanageError">
       <div class="alert mt-3" :class="wanageError ? 'alert-danger' : 'alert-success'">
@@ -138,64 +139,19 @@ function resetBoard() {
     </template>
     <div class="d-grid mt-3 gap-2">
       <div class="d-flex gap-2">
-        <div class="wanage-cell bg-light d-flex align-items-center justify-content-center" @click.stop="update(0)">
-          <div class="d-inline-block">
-            <div class="h1 m-0 text-center">{{wanageBoard[0].number}}</div>
-            <span class="badge rounded-pill" :class="wanageBoard[0].count > 0 ? 'bg-primary' : 'text-secondary'">{{wanageBoard[0].count}}</span>
-          </div>
-        </div>
-        <div class="wanage-cell bg-light d-flex align-items-center justify-content-center"  @click.stop="update(1)">
-          <div class="d-inline-block">
-            <div class="h1 m-0 text-center">{{wanageBoard[1].number}}</div>
-            <span class="badge rounded-pill" :class="wanageBoard[1].count > 0 ? 'bg-primary' : 'text-secondary'">{{wanageBoard[1].count}}</span>
-          </div>
-        </div>
-        <div class="wanage-cell bg-light d-flex align-items-center justify-content-center"  @click.stop="update(2)">
-          <div class="d-inline-block">
-            <div class="h1 m-0 text-center">{{wanageBoard[2].number}}</div>
-            <span class="badge rounded-pill" :class="wanageBoard[2].count > 0 ? 'bg-primary' : 'text-secondary'">{{wanageBoard[2].count}}</span>
-          </div>
-        </div>
+        <WanageCell v-bind="wanageBoard[0]" @click.stop="update(0)" />
+        <WanageCell v-bind="wanageBoard[1]" @click.stop="update(1)" />
+        <WanageCell v-bind="wanageBoard[2]" @click.stop="update(2)" />
       </div>
       <div class="d-flex gap-2">
-        <div class="wanage-cell bg-light d-flex align-items-center justify-content-center"  @click.stop="update(3)">
-          <div class="d-inline-block">
-            <div class="h1 m-0 text-center">{{wanageBoard[3].number}}</div>
-            <span class="badge rounded-pill" :class="wanageBoard[3].count > 0 ? 'bg-primary' : 'text-secondary'">{{wanageBoard[3].count}}</span>
-          </div>
-        </div>
-        <div class="wanage-cell bg-light d-flex align-items-center justify-content-center"  @click.stop="update(4)">
-          <div class="d-inline-block">
-            <div class="h1 m-0 text-center">{{wanageBoard[4].number}}</div>
-            <span class="badge rounded-pill" :class="wanageBoard[4].count > 0 ? 'bg-primary' : 'text-secondary'">{{wanageBoard[4].count}}</span>
-          </div>
-        </div>
-        <div class="wanage-cell bg-light d-flex align-items-center justify-content-center"  @click.stop="update(5)">
-          <div class="d-inline-block">
-            <div class="h1 m-0 text-center">{{wanageBoard[5].number}}</div>
-            <span class="badge rounded-pill" :class="wanageBoard[5].count > 0 ? 'bg-primary' : 'text-secondary'">{{wanageBoard[5].count}}</span>
-          </div>
-        </div>
+        <WanageCell v-bind="wanageBoard[3]" @click.stop="update(3)" />
+        <WanageCell v-bind="wanageBoard[4]" @click.stop="update(4)" />
+        <WanageCell v-bind="wanageBoard[5]" @click.stop="update(5)" />
       </div>
       <div class="d-flex gap-2">
-        <div class="wanage-cell bg-light d-flex align-items-center justify-content-center"  @click.stop="update(6)">
-          <div class="d-inline-block">
-            <div class="h1 m-0 text-center">{{wanageBoard[6].number}}</div>
-            <span class="badge rounded-pill" :class="wanageBoard[6].count > 0 ? 'bg-primary' : 'text-secondary'">{{wanageBoard[6].count}}</span>
-          </div>
-        </div>
-        <div class="wanage-cell bg-light d-flex align-items-center justify-content-center"  @click.stop="update(7)">
-          <div class="d-inline-block">
-            <div class="h1 m-0 text-center">{{wanageBoard[7].number}}</div>
-            <span class="badge rounded-pill" :class="wanageBoard[7].count > 0 ? 'bg-primary' : 'text-secondary'">{{wanageBoard[7].count}}</span>
-          </div>
-        </div>
-        <div class="wanage-cell bg-light d-flex align-items-center justify-content-center" @click.stop="update(8)">
-          <div class="d-inline-block">
-            <div class="h1 m-0 text-center">{{wanageBoard[8].number}}</div>
-            <span class="badge rounded-pill" :class="wanageBoard[8].count > 0 ? 'bg-primary' : 'text-secondary'">{{wanageBoard[8].count}}</span>
-          </div>
-        </div>
+        <WanageCell v-bind="wanageBoard[6]" @click.stop="update(6)" />
+        <WanageCell v-bind="wanageBoard[7]" @click.stop="update(7)" />
+        <WanageCell v-bind="wanageBoard[8]" @click.stop="update(8)" />
       </div>
     </div>
 
@@ -209,25 +165,5 @@ function resetBoard() {
 #name {
   font-size: 1.3em;
   max-width: 180px;
-}
-
-.wanage-cell {
-  font-size: 1.3em;
-  min-width: 90px;
-  min-height: 90px;
-  max-width: 90px;
-  max-height: 90px;
-  user-select: none;
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
-}
-
-.wanage-cell:hover {
-  background-color: #eee !important;
-}
-
-.wanage-cell > div > span {
-  font-family: monospace;
 }
 </style>
